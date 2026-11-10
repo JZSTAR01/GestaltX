@@ -1,0 +1,26 @@
+name: Cache restoration tests
+
+on:
+  push:
+    branches: [main, 'fix/**']
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  cache-tests:
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Compile and run document and migration tests
+        shell: bash
+        run: |
+          set -euo pipefail
+          sources=(GestaltX/GestaltDocument.swift GestaltX/Capabilities.swift GestaltX/DeviceCacheOptions.swift GestaltX/MobileGestaltCacheLayout.swift)
+          xcrun swiftc -parse-as-library "${sources[@]}" tests/DocumentTests.swift tests/WAPITests.swift tests/CacheOptionMigrationTests.swift -o "$RUNNER_TEMP/document-tests"
+          "$RUNNER_TEMP/document-tests"
+          xcrun swiftc -parse-as-library "${sources[@]}" tests/BackupLayoutTests.swift -o "$RUNNER_TEMP/backup-layout-tests"
+          "$RUNNER_TEMP/backup-layout-tests"

@@ -1,6 +1,58 @@
 {
   "sourceLanguage": "en",
   "strings": {
+    "Cannot restore saved additional options across cache layouts: the device model is missing or different.": {
+      "localizations": {
+        "en": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Cannot restore saved additional options across cache layouts: the device model is missing or different."
+          }
+        },
+        "zh-Hans": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "无法跨缓存布局恢复已保存的附加选项：设备机型信息缺失或不一致。"
+          }
+        },
+        "fa": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "بازیابی گزینه‌های اضافی ذخیره‌شده در چیدمان متفاوت حافظهٔ نهان ممکن نیست: مدل دستگاه موجود نیست یا متفاوت است."
+          }
+        },
+        "ko": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "캐시 구조가 달라 저장된 추가 옵션을 복원할 수 없습니다. 기기 모델 정보가 없거나 일치하지 않습니다."
+          }
+        },
+        "ru": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Невозможно восстановить сохранённые дополнительные параметры при другой структуре кэша: модель устройства отсутствует или отличается."
+          }
+        },
+        "vi": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "Không thể khôi phục các tùy chọn bổ sung đã lưu sang bố cục bộ nhớ đệm khác: thiếu thông tin kiểu thiết bị hoặc kiểu thiết bị không khớp."
+          }
+        },
+        "zh-Hant-HK": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法跨快取佈局還原已儲存的附加選項：裝置型號資料缺失或不一致。"
+          }
+        },
+        "zh-Hant-TW": {
+          "stringUnit": {
+            "state": "translated",
+            "value": "無法跨快取配置還原已儲存的附加選項：裝置型號資訊缺失或不一致。"
+          }
+        }
+      }
+    },
     "WAPI": {
       "localizations": {
         "en": {

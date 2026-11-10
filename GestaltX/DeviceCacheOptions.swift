@@ -22,24 +22,33 @@ struct CachedOptionFlags: Equatable, Codable, Sendable {
     static let restricted = Self(greenTea: true, notGreenTea: false)
 }
 
-// Bind saved values to the cache layout; model and OS version are metadata only.
+// Store semantic Boolean values, not offsets or bytes from the old layout.
+// GestaltFileStore validates journal ownership before exposing these records.
 struct CachedOptionsOriginal: Codable, Equatable, Sendable {
     let productType: String
     let build: String
     let layoutUUID: String
     let flags: CachedOptionFlags
 
-    init(document: GestaltDocument) throws {
-        flags = try DeviceCacheOptions.flags(in: document)
+    init(document: GestaltDocument, using resolvedLayout: MobileGestaltCacheLayout? = nil) throws {
+        flags = try DeviceCacheOptions.flags(in: document, using: resolvedLayout)
         productType = document.extra[GestaltKeys.productType] as? String ?? ""
         build = document.root["CacheVersion"] as? String ?? ""
         layoutUUID = document.root["CacheUUID"] as? String ?? ""
     }
 
-    func flags(in document: GestaltDocument) throws -> CachedOptionFlags {
-        _ = try DeviceCacheOptions.validatedData(in: document)
-        guard document.root["CacheUUID"] as? String == layoutUUID else {
-            throw GestaltFailure("The cache layout or values do not match this preset.")
+    func flags(in document: GestaltDocument, using resolvedLayout: MobileGestaltCacheLayout? = nil) throws -> CachedOptionFlags {
+        // Resolve and validate the destination independently. A system update may
+        // move both fields; the saved UUID is provenance, never an offset source.
+        _ = try DeviceCacheOptions.validatedData(in: document, using: resolvedLayout)
+        if (document.root["CacheUUID"] as? String)?.caseInsensitiveCompare(layoutUUID) != .orderedSame {
+            // Keep same-layout legacy records working without model metadata.
+            // Cross-layout migration requires a matching model in addition to
+            // the installation/device ownership checks in GestaltFileStore.
+            guard !layoutUUID.isEmpty, !productType.isEmpty,
+                  document.extra[GestaltKeys.productType] as? String == productType else {
+                throw GestaltFailure("Cannot restore saved additional options across cache layouts: the device model is missing or different.")
+            }
         }
         return flags
     }

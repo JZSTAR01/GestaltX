@@ -358,5 +358,6 @@
   "Handwriting Synthesis": "Синтез рукописного текста",
   "Advertise the handwriting synthesis model capability.": "Объявляет возможность модели синтеза рукописного текста.",
   "Always-Listening Hey Siri": "Постоянно слушающая Hey Siri",
-  "Advertise always-listening Hey Siri support.": "Объявляет поддержку постоянно слушающей Hey Siri."
+  "Advertise always-listening Hey Siri support.": "Объявляет поддержку постоянно слушающей Hey Siri.",
+  "Cannot restore saved additional options across cache layouts: the device model is missing or different.": "無法跨快取佈局還原已儲存的附加選項：裝置型號資料缺失或不一致。"
 }

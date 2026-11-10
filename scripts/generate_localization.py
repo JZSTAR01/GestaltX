@@ -2,6 +2,7 @@ from pathlib import Path
 import json
 ROOT = Path(__file__).resolve().parents[1]
 TRANSLATIONS = '''
+Cannot restore saved additional options across cache layouts: the device model is missing or different.	无法跨缓存布局恢复已保存的附加选项：设备机型信息缺失或不一致。
 WAPI	WAPI
 Disable WAPI	关闭 WAPI
 Restore Original	恢复原值

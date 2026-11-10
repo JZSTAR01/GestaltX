@@ -365,6 +365,7 @@ final class AccessTrace: @unchecked Sendable {
         defer { try? fm.removeItem(at: root) }
         try verifyDynamicCacheLayout()
         try await verifyCachedOptions(in: root)
+        try await verifyCacheOptionMigration(in: root)
         try await verifyWAPI(in: root)
         let device = root.appendingPathComponent("device.plist")
         let backups = root.appendingPathComponent("backups", isDirectory: true)

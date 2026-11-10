@@ -358,5 +358,6 @@
   "Handwriting Synthesis": "Tổng hợp chữ viết tay",
   "Advertise the handwriting synthesis model capability.": "Khai báo khả năng mô hình tổng hợp chữ viết tay.",
   "Always-Listening Hey Siri": "Hey Siri luôn lắng nghe",
-  "Advertise always-listening Hey Siri support.": "Khai báo hỗ trợ Hey Siri luôn lắng nghe."
+  "Advertise always-listening Hey Siri support.": "Khai báo hỗ trợ Hey Siri luôn lắng nghe.",
+  "Cannot restore saved additional options across cache layouts: the device model is missing or different.": "無法跨快取配置還原已儲存的附加選項：裝置型號資訊缺失或不一致。"
 }

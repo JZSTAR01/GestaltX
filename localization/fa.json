@@ -358,5 +358,6 @@
   "Handwriting Synthesis": "手寫合成",
   "Advertise the handwriting synthesis model capability.": "宣告手寫合成模型能力。",
   "Always-Listening Hey Siri": "常聽 Hey Siri",
-  "Advertise always-listening Hey Siri support.": "宣告支援常聽 Hey Siri。"
+  "Advertise always-listening Hey Siri support.": "宣告支援常聽 Hey Siri。",
+  "Cannot restore saved additional options across cache layouts: the device model is missing or different.": "بازیابی گزینه‌های اضافی ذخیره‌شده در چیدمان متفاوت حافظهٔ نهان ممکن نیست: مدل دستگاه موجود نیست یا متفاوت است."
 }
