@@ -155,7 +155,10 @@ final class GestaltManager: ObservableObject {
             try document.setCacheOptions(flags)
             working = document
             cacheOptionChoice = choice
-        } catch { failed(error) }
+        } catch {
+            logCacheOptionState(snapshot)
+            failed(error)
+        }
     }
 
     func stageWAPI(_ choice: WAPIChoice) {
@@ -306,6 +309,25 @@ final class GestaltManager: ObservableObject {
         }
     }
 
+    private func logCacheOptionState(_ snapshot: DocumentSnapshot) {
+        let document = snapshot.document
+        log("[cache-options] Current layout: " + (document.root["CacheUUID"] as? String ?? "missing"))
+        do {
+            let current = try DeviceCacheOptions.flags(in: document)
+            log("[cache-options] Current flags: green-tea=\(current.greenTea), not-green-tea=\(current.notGreenTea)")
+        } catch { log("[cache-options] Current validation failed: " + error.localizedDescription) }
+        guard let saved = snapshot.cachedOptionsOriginal else {
+            log("[cache-options] No saved additional-option originals; loaded values are the baseline")
+            return
+        }
+        log("[cache-options] Saved layout: \(saved.layoutUUID); flags: green-tea=\(saved.flags.greenTea), not-green-tea=\(saved.flags.notGreenTea)")
+        log("[cache-options] Saved model matches current: \(!saved.productType.isEmpty && document.extra[GestaltKeys.productType] as? String == saved.productType)")
+        do {
+            _ = try saved.flags(in: document)
+            log("[cache-options] Saved originals can be restored using the current layout")
+        } catch { log("[cache-options] Original restore validation failed: " + error.localizedDescription) }
+    }
+
     func connect(showErrorAlert: Bool = true) async {
         guard !isBusy else { return }
         isBusy = true; status = "Checking device access…"
@@ -316,6 +338,7 @@ final class GestaltManager: ObservableObject {
             accept(result); deviceAccessible = true; status = "Device connected"
             log("[read] plist: \(result.data.count) bytes")
             for line in summarize(result.document) { log("[read] " + line) }
+            logCacheOptionState(result)
             log(L("Device connected"))
         } catch {
             deviceAccessible = false; status = "Device access unavailable"
